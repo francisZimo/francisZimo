@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/22/nodejs%E8%BF%9E%E6%8E%A5MySQL/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2020/09/22/nodejs%E8%BF%9E%E6%8E%A5MySQL/" class="post-title-link" itemprop="url">nodejs连接MySQL</a>
         </h2>
 
         <div class="post-meta">
@@ -214,8 +214,18 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-09-22 11:15:13" itemprop="dateCreated datePublished" datetime="2020-09-22T11:15:13+08:00">2020-09-22</time>
+              <time title="创建时间：2020-09-22 11:15:13 / 修改时间：12:02:34" itemprop="dateCreated datePublished" datetime="2020-09-22T11:15:13+08:00">2020-09-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node/" itemprop="url" rel="index"><span itemprop="name">node</span></a>
+                </span>
             </span>
 
           
@@ -243,11 +253,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="nodejs连接MySQL"><a href="#nodejs连接MySQL" class="headerlink" title="nodejs连接MySQL"></a>nodejs连接MySQL</h3><p>####1.安装mysql</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm i mysql</span><br></pre></td></tr></table></figure>
+          <h4 id="1-安装mysql"><a href="#1-安装mysql" class="headerlink" title="1.安装mysql"></a>1.安装mysql</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm i mysql</span><br></pre></td></tr></table></figure>
 
-<p>####2.nodejs连接mysql</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mySql = <span class="built_in">require</span>(<span class="string">&#x27;mySql&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建连接对象</span></span><br><span class="line"><span class="keyword">const</span> con = mySql.createConnection(&#123;</span><br><span class="line">    host: <span class="string">&#x27;localhost&#x27;</span>,</span><br><span class="line">    user: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">    password: <span class="string">&#x27;****&#x27;</span>,</span><br><span class="line">    port: <span class="string">&#x27;3306&#x27;</span>,</span><br><span class="line">    database: <span class="string">&#x27;myblog&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开始连接</span></span><br><span class="line">con.connect()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行sql语句</span></span><br><span class="line"><span class="keyword">const</span> sql = <span class="string">&#x27;select * from users;&#x27;</span></span><br><span class="line">con.query(sql, <span class="function">(<span class="params">err, result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(result)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭连接</span></span><br><span class="line">con.end()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="2-nodejs连接mysql"><a href="#2-nodejs连接mysql" class="headerlink" title="2.nodejs连接mysql"></a>2.nodejs连接mysql</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mySql = <span class="built_in">require</span>(<span class="string">&#x27;mySql&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建连接对象</span></span><br><span class="line"><span class="keyword">const</span> con = mySql.createConnection(&#123;</span><br><span class="line">    host: <span class="string">&#x27;localhost&#x27;</span>,</span><br><span class="line">    user: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">    password: <span class="string">&#x27;****&#x27;</span>,</span><br><span class="line">    port: <span class="string">&#x27;3306&#x27;</span>,</span><br><span class="line">    database: <span class="string">&#x27;myblog&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开始连接</span></span><br><span class="line">con.connect()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行sql语句</span></span><br><span class="line"><span class="keyword">const</span> sql = <span class="string">&#x27;select * from users;&#x27;</span></span><br><span class="line">con.query(sql, <span class="function">(<span class="params">err, result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(result)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭连接</span></span><br><span class="line">con.end()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -297,7 +305,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-16 11:37:58" itemprop="dateModified" datetime="2020-09-16T11:37:58+08:00">2020-09-16</time>
+                <time title="修改时间：2020-09-22 12:03:23" itemprop="dateModified" datetime="2020-09-22T12:03:23+08:00">2020-09-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -305,7 +313,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">优化</span></a>
+                  <a href="/categories/fe%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">fe优化</span></a>
                 </span>
             </span>
 
@@ -437,8 +445,16 @@
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">分类</span>
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
