@@ -191,6 +191,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/23/Vue2-0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/zb.jpg">
+      <meta itemprop="name" content="Francis">
+      <meta itemprop="description" content="Never old to learn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="酒肉穿肠过/长胖需百天">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/23/Vue2-0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Vue2.0实现原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-23 11:26:19 / 修改时间：11:45:10" itemprop="dateCreated datePublished" datetime="2020-09-23T11:26:19+08:00">2020-09-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/23/Vue2-0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/23/Vue2-0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>mvvm 双向数据绑定<br>数据影响视图，视图影响数据<br>angular 脏值检测  vue数据劫持+发布订阅模式<br>vue 不兼容低版本 用的是Object.defineProperty<br>下面涉及涵盖的知识点</p>
+</blockquote>
+<h4 id="1-Object-defineProperty"><a href="#1-Object-defineProperty" class="headerlink" title="1. Object.defineProperty"></a>1. Object.defineProperty</h4><blockquote>
+<p>因为vue底层是基于<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty</a>实现的，所以对于这方面不懂的自己先学习。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。<br><strong>语法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="built_in">Object</span>.defineProperty(obj, prop, descriptor)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>基本用法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">o.a = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 等同于 :</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">&quot;a&quot;</span>, &#123;</span><br><span class="line">  value : <span class="number">1</span>,</span><br><span class="line">  writable : <span class="literal">true</span>,</span><br><span class="line">  configurable : <span class="literal">true</span>,</span><br><span class="line">  enumerable : <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 另一方面，</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">&quot;a&quot;</span>, &#123; <span class="attr">value</span> : <span class="number">1</span> &#125;);</span><br><span class="line"><span class="comment">// 等同于 :</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">&quot;a&quot;</span>, &#123;</span><br><span class="line">  value : <span class="number">1</span>,</span><br><span class="line">  writable : <span class="literal">false</span>,</span><br><span class="line">  configurable : <span class="literal">false</span>,</span><br><span class="line">  enumerable : <span class="literal">false</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/23/Vue2-0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/22/nodejs%E8%BF%9E%E6%8E%A5MySQL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -440,20 +541,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
