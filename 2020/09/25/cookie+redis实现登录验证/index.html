@@ -19,21 +19,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1.安装 mac安装  brew install redis  启动  redis-serverredis-cli   2. 基本语法 set name limengget namedel limengkeys *">
+  <meta name="description" content="步骤11.服务器判断请求信息携带的cookie中是否有userid（或者sessionId）,没有的话捏造出一个随机的userid值（userid：用途1.用于服务端在header头部Set-Cookie 2.redis中存储一个对应的key值用于存储用户登录后的信息数据） 12345678910111213141516171819202122232425 &#x2F;&#x2F; 使用redis封装的set get">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis使用">
-<meta property="og:url" content="http://example.com/2020/09/24/redis%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="cookie+redis实现登录验证">
+<meta property="og:url" content="http://example.com/2020/09/25/cookie+redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81/index.html">
 <meta property="og:site_name" content="酒肉穿肠过&#x2F;长胖需百天">
-<meta property="og:description" content="1.安装 mac安装  brew install redis  启动  redis-serverredis-cli   2. 基本语法 set name limengget namedel limengkeys *">
+<meta property="og:description" content="步骤11.服务器判断请求信息携带的cookie中是否有userid（或者sessionId）,没有的话捏造出一个随机的userid值（userid：用途1.用于服务端在header头部Set-Cookie 2.redis中存储一个对应的key值用于存储用户登录后的信息数据） 12345678910111213141516171819202122232425 &#x2F;&#x2F; 使用redis封装的set get">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-24T10:02:08.000Z">
-<meta property="article:modified_time" content="2020-09-24T10:07:22.783Z">
+<meta property="article:published_time" content="2020-09-25T09:28:39.383Z">
+<meta property="article:modified_time" content="2020-09-25T09:32:03.715Z">
 <meta property="article:author" content="Francis">
 <meta property="article:tag" content="redis">
-<meta property="article:tag" content="node">
+<meta property="article:tag" content="cookie">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2020/09/24/redis%E4%BD%BF%E7%94%A8/">
+<link rel="canonical" href="http://example.com/2020/09/25/cookie+redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>redis使用 | 酒肉穿肠过/长胖需百天</title>
+  <title>cookie+redis实现登录验证 | 酒肉穿肠过/长胖需百天</title>
   
 
 
@@ -195,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/24/redis%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/25/cookie+redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/zb.jpg">
@@ -208,7 +208,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          redis使用
+          cookie+redis实现登录验证
         </h1>
 
         <div class="post-meta">
@@ -219,7 +219,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-09-24 18:02:08 / 修改时间：18:07:22" itemprop="dateCreated datePublished" datetime="2020-09-24T18:02:08+08:00">2020-09-24</time>
+              <time title="创建时间：2020-09-25 17:28:39 / 修改时间：17:32:03" itemprop="dateCreated datePublished" datetime="2020-09-25T17:28:39+08:00">2020-09-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,8 +240,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/09/24/redis%E4%BD%BF%E7%94%A8/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/24/redis%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/09/25/cookie+redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/25/cookie+redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -256,20 +256,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h4><p> mac安装</p>
-<blockquote>
-<p>brew install redis</p>
-</blockquote>
-<p>启动</p>
-<blockquote>
-<p>redis-server<br>redis-cli </p>
-</blockquote>
-<h4 id="2-基本语法"><a href="#2-基本语法" class="headerlink" title="2. 基本语法"></a>2. 基本语法</h4><blockquote>
-<p>set name limeng<br>get name<br>del limeng<br>keys *</p>
-</blockquote>
+        <h4 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h4><p>1.服务器判断请求信息携带的cookie中是否有userid（或者sessionId）,没有的话捏造出一个随机的userid值（userid：用途1.用于服务端在header头部Set-Cookie 2.redis中存储一个对应的key值用于存储用户登录后的信息数据）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 使用redis封装的set get方法</span></span><br><span class="line">	<span class="keyword">const</span> &#123;set, get &#125; = <span class="built_in">require</span>(<span class="string">&quot;./db/redis&quot;</span>)</span><br><span class="line">    <span class="keyword">let</span> needSetCookie = <span class="literal">false</span> <span class="comment">// 是否需要设置cookie</span></span><br><span class="line">    <span class="keyword">let</span> userId = req.cookie.userid</span><br><span class="line">    <span class="keyword">if</span> (!userId) &#123;</span><br><span class="line">        needSetCookie = <span class="literal">true</span>;</span><br><span class="line">        userId = <span class="string">`<span class="subst">$&#123;<span class="built_in">Date</span>.now()&#125;</span>_<span class="subst">$&#123;<span class="built_in">Math</span>.random()&#125;</span>`</span></span><br><span class="line">        set(userId, &#123;&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">     req.sessionId = userId</span><br><span class="line">     <span class="comment">// 从redis中根据sessionId拿到存储的数据</span></span><br><span class="line">     get(req.sessionId).then(<span class="function"><span class="params">sessionData</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (sessionData === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 初始化session</span></span><br><span class="line">            set(req.sessionId, &#123;&#125;)</span><br><span class="line">            req.session = &#123;&#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            req.session = sessionData</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">--------------------------</span><br><span class="line"><span class="comment">//如果首次访问任意api时候发现没有userid需设置cookie的话在header中设置 Set-Cookie</span></span><br><span class="line"><span class="keyword">if</span> (needSetCookie) &#123;</span><br><span class="line">   res.setHeader(<span class="string">&#x27;Set-Cookie&#x27;</span>, <span class="string">`userid=<span class="subst">$&#123;userId&#125;</span>; path=/; httpOnly; expires=<span class="subst">$&#123;getCookieExpires()&#125;</span>`</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 
-<h4 id="3-redis存储session"><a href="#3-redis存储session" class="headerlink" title="3.redis存储session"></a>3.redis存储session</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> redis=<span class="built_in">require</span>(<span class="string">&quot;redis&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建客户端</span></span><br><span class="line"><span class="keyword">const</span> redisClient=redis.createClient(<span class="number">6379</span>,<span class="string">&#x27;127.0.0.1&#x27;</span>)</span><br><span class="line">redisClient.on(<span class="string">&#x27;error&#x27;</span>,<span class="function"><span class="params">err</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(err)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">redisClient.set(<span class="string">&#x27;name&#x27;</span>,<span class="string">&#x27;francis&#x27;</span>,redis.print)</span><br><span class="line">redisClient.get(<span class="string">&#x27;name&#x27;</span>,<span class="function">(<span class="params">err,val</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(err)&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;val:&#x27;</span>,val)</span><br><span class="line">  <span class="comment">// 退出</span></span><br><span class="line">  redisClient.quit()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="步骤2"><a href="#步骤2" class="headerlink" title="步骤2"></a>步骤2</h3><p>2.请求登录接口成功后，同步在redis中设置需要存储的用户信息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// userLogin() 根据用户名密码从数据库中获取用户信息</span></span><br><span class="line">userLogin(obj).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (result) &#123;</span><br><span class="line">                <span class="comment">// 设置session</span></span><br><span class="line">                req.session.username = result.username;</span><br><span class="line">                req.session.realname = result.realname;</span><br><span class="line">                <span class="comment">// 同步到redis中</span></span><br><span class="line">                set(req.sessionId, result)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> SuccessModal(result)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ErrorModal(<span class="string">&#x27;登录失败&#x27;</span>)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤3"><a href="#步骤3" class="headerlink" title="步骤3"></a>步骤3</h3><p>3.在处理每个路由前先去判断用户处于登录状态,没有登录则终止程序进行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> checkLogin = <span class="function">(<span class="params">req</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!req.session.username) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(<span class="string">&quot;尚未登录&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">-------</span><br><span class="line"><span class="comment">// 使用举例</span></span><br><span class="line"> <span class="keyword">if</span> (method === <span class="string">&#x27;POST&#x27;</span> &amp;&amp; req.path === <span class="string">&#x27;/api/blog/new&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> checkResult = checkLogin(req)</span><br><span class="line">        <span class="keyword">if</span> (checkResult) &#123;</span><br><span class="line">            <span class="keyword">return</span> checkResult</span><br><span class="line">        &#125;</span><br><span class="line">     <span class="comment">//******</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
 
     </div>
 
@@ -280,7 +277,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/redis/" rel="tag"># redis</a>
-              <a href="/tags/node/" rel="tag"># node</a>
+              <a href="/tags/cookie/" rel="tag"># cookie</a>
           </div>
 
         
@@ -289,13 +286,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/09/23/Vue2-0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" rel="prev" title="Vue2.0实现原理">
-      <i class="fa fa-chevron-left"></i> Vue2.0实现原理
+    <a href="/2020/09/24/redis%E4%BD%BF%E7%94%A8/" rel="prev" title="redis使用">
+      <i class="fa fa-chevron-left"></i> redis使用
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/09/25/cookie+redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81/" rel="next" title="cookie+redis实现登录验证">
-      cookie+redis实现登录验证 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -358,7 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">1.安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">2. 基本语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-redis%E5%AD%98%E5%82%A8session"><span class="nav-number">3.</span> <span class="nav-text">3.redis存储session</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A41"><span class="nav-number">1.</span> <span class="nav-text">步骤1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A42"><span class="nav-number"></span> <span class="nav-text">步骤2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A43"><span class="nav-number"></span> <span class="nav-text">步骤3</span></a></div>
       </div>
       <!--/noindex-->
 
