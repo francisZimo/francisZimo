@@ -191,6 +191,176 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/13/%E6%97%A5%E5%BF%97%E5%86%99%E5%85%A5&%E5%88%86%E7%B1%BB&%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/zb.jpg">
+      <meta itemprop="name" content="Francis">
+      <meta itemprop="description" content="Never old to learn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="酒肉穿肠过/长胖需百天">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/13/%E6%97%A5%E5%BF%97%E5%86%99%E5%85%A5&%E5%88%86%E7%B1%BB&%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">日志写入&分类&分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-13 18:07:10 / 修改时间：18:23:40" itemprop="dateCreated datePublished" datetime="2020-10-13T18:07:10+08:00">2020-10-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node/" itemprop="url" rel="index"><span itemprop="name">node</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/13/%E6%97%A5%E5%BF%97%E5%86%99%E5%85%A5&%E5%88%86%E7%B1%BB&%E5%88%86%E6%9E%90/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/13/%E6%97%A5%E5%BF%97%E5%86%99%E5%85%A5&%E5%88%86%E7%B1%BB&%E5%88%86%E6%9E%90/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="日志写入"><a href="#日志写入" class="headerlink" title="日志写入"></a>日志写入</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//写日志</span></span><br><span class="line"><span class="keyword">const</span> writeFile = <span class="function">(<span class="params">writeSteam, logs</span>) =&gt;</span> &#123;</span><br><span class="line">    writeSteam.write(logs + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建 wire steam</span></span><br><span class="line"><span class="keyword">const</span> createWriteStream = <span class="function">(<span class="params">fileName</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> filePath = path.join(__dirname, <span class="string">&#x27;../&#x27;</span>, <span class="string">&#x27;logs&#x27;</span>, fileName)</span><br><span class="line">    <span class="built_in">console</span>.log(filePath, <span class="string">&#x27;==filePath&#x27;</span>)</span><br><span class="line">    <span class="keyword">const</span> writeSteam = fs.createWriteStream(filePath, &#123;</span><br><span class="line">        flags: <span class="string">&#x27;a&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> writeSteam</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> wirteSteam = createWriteStream(<span class="string">&#x27;access.log&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> access = <span class="function">(<span class="params">logs</span>) =&gt;</span> &#123;</span><br><span class="line">    writeFile(wirteSteam, logs)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    access</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/13/%E6%97%A5%E5%BF%97%E5%86%99%E5%85%A5&%E5%88%86%E7%B1%BB&%E5%88%86%E6%9E%90/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/13/crypto%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/zb.jpg">
+      <meta itemprop="name" content="Francis">
+      <meta itemprop="description" content="Never old to learn">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="酒肉穿肠过/长胖需百天">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/13/crypto%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">crypto加密数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-13 18:06:51 / 修改时间：18:19:33" itemprop="dateCreated datePublished" datetime="2020-10-13T18:06:51+08:00">2020-10-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node/" itemprop="url" rel="index"><span itemprop="name">node</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/13/crypto%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/13/crypto%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>)</span><br><span class="line">    <span class="comment">// 密钥</span></span><br><span class="line"><span class="keyword">const</span> SECRET_KEY = <span class="string">&#x27;franciszimozb&#x27;</span></span><br><span class="line">    <span class="comment">// md5 加密</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">md5</span>(<span class="params">content</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> md5 = crypto.createHash(<span class="string">&#x27;md5&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> md5.update(content).digest(<span class="string">&#x27;hex&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加密函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">genPassword</span>(<span class="params">password</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> str = <span class="string">`password = <span class="subst">$&#123;password&#125;</span>&amp;key=<span class="subst">$&#123;SECRET_KEY&#125;</span>`</span></span><br><span class="line">    <span class="keyword">return</span> md5(str)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    genPassword</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/25/cookie+redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -730,7 +900,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -743,7 +913,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
